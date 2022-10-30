@@ -1,5 +1,6 @@
 import error_function
 import os
+import pandas as pd
 
 
 def single_or_mass():
@@ -17,14 +18,22 @@ def single_or_mass():
         error_function.error_5()
 
     if mass_import_choice == 'y':
-        mass_import()
+        return 1
 
     else:
-        target_item()
+        return 0
 
 
 def mass_import():
-    csv_path = os.getcwd() + 'Target eBay items.csv'
+    csv_name = 'lookup_items.csv'
+    csv_path = os.getcwd() + '\\' + csv_name
+    csv = pd.read_csv(csv_path)
+
+    cols = len(csv)
+    return cols, csv
+
+
+
 
 
 def target_item():
