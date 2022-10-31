@@ -18,11 +18,16 @@ def single_item_check():
     eBay_scrape.export(products, new_search)
 
 def mass_check():
+    i = 0
     num_items, new_search = target_item.mass_import()
+
+    print(new_search)
     for items in new_search:
+        print(items)
         new_url = target_item.url(items)
         soup = eBay_scrape.get_data(new_url)
         products = eBay_scrape.parse(soup)
         eBay_scrape.export(products, items)
+        i = i + 1
 
 main()

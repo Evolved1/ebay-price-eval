@@ -1,10 +1,12 @@
 import error_function
 import os
 import pandas as pd
+import mpu.pd
+import csv
 
 
 def single_or_mass():
-    loop = [0,1,2,3,4]
+    loop = [0, 1, 2, 3, 4]
     test = -1
     for i in loop:
         mass_import_choice = input('Would you like to do a mass price check?(y/n)\n').lower().strip()
@@ -27,13 +29,18 @@ def single_or_mass():
 def mass_import():
     csv_name = 'lookup_items.csv'
     csv_path = os.getcwd() + '\\' + csv_name
-    csv = pd.read_csv(csv_path)
 
-    cols = len(csv)
-    return cols, csv
+    with open(csv_path, newline='') as f:
+        reader = csv.reader(f)
+        data = list(reader)
 
 
+    #csv = pd.read_csv(csv_path, delimiter=',', header=1)
+    #csv = csv.replace(' ', '+')
+    #print(csv)
 
+    cols = len(data)
+    return cols, data
 
 
 def target_item():

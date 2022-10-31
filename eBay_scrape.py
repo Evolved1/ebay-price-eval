@@ -64,7 +64,7 @@ def loadup(product_list):
 
 def export(product_list, search_term):
     productsdf = pd.DataFrame(product_list)
-    productsdf.to_csv(search_term+'.csv', index=False)
+    productsdf.to_csv(search_term +'.csv', index=False)
     print('Saved to CSV')
     return
 
