@@ -1,6 +1,7 @@
 import eBay_scrape
 import error_function
 import target_item
+import csv_logic
 
 def main():
     mass_import = target_item.single_or_mass()
@@ -27,7 +28,9 @@ def mass_check():
         new_url = target_item.url(items)
         soup = eBay_scrape.get_data(new_url)
         products = eBay_scrape.parse(soup)
-        eBay_scrape.export(products, items)
+        products_tested = csv_logic.check_for_ghost(products)
+        #print(products_tested)
+        eBay_scrape.export(products_tested, items)
         i = i + 1
 
 main()
