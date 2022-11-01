@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import utility
+import hashlib
 
 
 def get_data(url):
@@ -17,9 +18,10 @@ def parse(soup):
     results = soup.find_all('div', {'class': 's-item__info clearfix'})
     for item in results:
         products = {'title': title(item),
-            'sold price': sold_price(item),
-            'solddate': sold_date(item),
-            'link': link(item)}
+            'sold_price': sold_price(item),
+            'sold_date': sold_date(item),
+            'link': link(item),
+            'hash': hashlib.md5(link(item).encode('utf-8'))}
         product_list.append(products)
         #print(products)
     return product_list

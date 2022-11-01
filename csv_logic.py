@@ -2,9 +2,11 @@ import os
 import codecs
 import csv
 import pandas as pd
-
+from datetime import date
 import utility
 
+#Global Variables
+DATE_UPDATED = date.today()
 
 def csv_logic_main(results, search_term):
 
@@ -52,19 +54,34 @@ def update_csv(new_data, csv_path):
         reader = csv.reader(f)
         old_data = [row for row in reader]
 
+    #if test_new_data():
+
     for new_results in new_data:
         new_info = 0
+        i = 0
+
         for old_results in old_data:
-            if old_results != new_results:
+            new_title = str(new_results["title"])
+            old_title = old_results[0]
+            new_date = str(new_results['sold_date'])
+            old_date = old_results[2]
+
+            i = i + 1
+
+            if old_title == new_title and old_date == new_date:
                 new_info = new_info + 1
-        if new_info != len(old_data):
+        if new_info == 0:
             old_data.append(new_results)
             appended = appended + 1
+
+    #old_data[len(old_data[0])]= DATE_UPDATED
 
     print(f'{utility.bcolors.WARNING}{utility.bcolors.BOLD}', 'Updated ', appended, ' new items', f'{utility.bcolors.ENDC}\n')
     return appended
 
 def export_new_csv(product_list, search_term):
+    #product_list[0].title = ('Date Updated:')
+    #product_list[0].sold_price = (DATE_UPDATED)
     productsdf = pd.DataFrame(product_list)
     csv_name = str(search_term) + '.csv'
     csv_path = os.getcwd() + '\\Library\\' + csv_name
