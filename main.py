@@ -23,7 +23,7 @@ def mass_check():
 
     print(new_search)
     for items in new_search:
-        print(items)
+        #print(items)
         new_url = target_item.url(items)
         soup = eBay_scrape.get_data(new_url)
         products = eBay_scrape.parse(soup)
