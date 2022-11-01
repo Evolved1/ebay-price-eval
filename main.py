@@ -15,10 +15,10 @@ def main():
     else:
         mass_check()
 
-    print(f'{utility.bcolors.OKGREEN}', '--------------------------------------------------------------', f'{utility.bcolors.ENDC}')
+    print(f'{utility.bcolors.OKGREEN}{utility.bcolors.BOLD}', '--------------------------------------------------------------', f'{utility.bcolors.ENDC}')
     print(f'{utility.bcolors.OKBLUE}', csv_logic.csv_logic_main.appended, ' old files updated', f'{utility.bcolors.ENDC}')
     print(f'{utility.bcolors.OKBLUE}', csv_logic.csv_logic_main.new_file, ' new files created', f'{utility.bcolors.ENDC}')
-    print(f'{utility.bcolors.OKGREEN}', '--------------------------------------------------------------', f'{utility.bcolors.ENDC}')
+    print(f'{utility.bcolors.OKGREEN}{utility.bcolors.BOLD}', '--------------------------------------------------------------', f'{utility.bcolors.ENDC}')
 
 
 def single_item_check():

@@ -60,8 +60,3 @@ def link(item):
 
 def loadup(product_list):
     return
-
-
-if __name__ == '__main__':
-    main()
-

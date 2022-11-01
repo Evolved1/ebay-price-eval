@@ -9,12 +9,13 @@ import utility
 def csv_logic_main(results, search_term):
 
     results = check_for_ghost(results)
-    csv_path = check_if_csv_exists(search_term)
-    if csv_path:
-        csv_logic_main.appended += update_csv(results, csv_path)
-
-    else:
-        csv_logic_main.new_file += export_new_csv(results, search_term)
+    found_results = check_for_searches(results)
+    if found_results:
+        csv_path = check_if_csv_exists(search_term)
+        if csv_path:
+            csv_logic_main.appended += update_csv(results, csv_path)
+        else:
+            csv_logic_main.new_file += export_new_csv(results, search_term)
 
 
 def check_for_ghost(results):
@@ -24,10 +25,18 @@ def check_for_ghost(results):
     #print(results[0])
     return results
 
+def check_for_searches(results):
+    if len(results) == 0:
+        print(f'{utility.bcolors.FAIL}', 'No results found!', f'{utility.bcolors.ENDC}')
+        return False
+    else:
+        return True
+
+
 def check_if_csv_exists(search_term):
 
     csv_name = str(search_term) + '.csv'
-    csv_path = os.getcwd() + '\\' + csv_name
+    csv_path = os.getcwd() + '\\Library\\' + csv_name
     #print('\n\n\n\nTEST1\n\n\n\n')
     if os.path.exists(csv_path):
         print(f'{utility.bcolors.HEADER}', 'File found, updating!', f'{utility.bcolors.ENDC}')
@@ -57,7 +66,9 @@ def update_csv(new_data, csv_path):
 
 def export_new_csv(product_list, search_term):
     productsdf = pd.DataFrame(product_list)
-    productsdf.to_csv(search_term +'.csv', index=False)
+    csv_name = str(search_term) + '.csv'
+    csv_path = os.getcwd() + '\\Library\\' + csv_name
+    productsdf.to_csv(csv_path, index=False)
     print(f'{utility.bcolors.WARNING}{utility.bcolors.BOLD}', 'CSV saved with ', len(product_list), ' items', f'{utility.bcolors.ENDC}\n')
     return 1
 
