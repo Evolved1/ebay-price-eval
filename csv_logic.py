@@ -52,13 +52,13 @@ def update_csv(new_data, csv_path):
             old_data.append(new_results)
             appended = appended + 1
 
-    print(f'{utility.bcolors.WARNING}{utility.bcolors.BOLD}', 'Updated ', appended, ' items', f'{utility.bcolors.ENDC}\n')
+    print(f'{utility.bcolors.WARNING}{utility.bcolors.BOLD}', 'Updated ', appended, ' new items', f'{utility.bcolors.ENDC}\n')
     return appended
 
 def export_new_csv(product_list, search_term):
     productsdf = pd.DataFrame(product_list)
     productsdf.to_csv(search_term +'.csv', index=False)
-    print('Saved to CSV')
+    print(f'{utility.bcolors.WARNING}{utility.bcolors.BOLD}', 'CSV saved with ', len(product_list), ' items', f'{utility.bcolors.ENDC}\n')
     return 1
 
 
