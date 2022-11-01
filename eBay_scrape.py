@@ -1,8 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
-import pandas as pd
+import utility
 
-ERROR_0 = 'Error 0: No Data or Not Parsed Correctly'
 
 def get_data(url):
     r = requests.get(url)
@@ -30,7 +29,7 @@ def title(item):
     if title:
         title = title.text
     else:
-        title = ERROR_0
+        title = utility.error_4()
     return title
 
 def sold_price(item):
@@ -39,7 +38,7 @@ def sold_price(item):
     if sold_price:
         sold_price = float(sold_price.text.replace('AU','').replace(' ', '').replace('$','').replace(',','').split(separator,1)[0].strip())
     else:
-        sold_price = ERROR_0
+        sold_price = utility.error_4()
     return sold_price
 
 def sold_date(item):
@@ -47,7 +46,7 @@ def sold_date(item):
     if sold_date:
         sold_date = sold_date.text
     else:
-        sold_date = ERROR_0
+        sold_date = utility.error_4()
     return sold_date
 
 def link(item):
@@ -55,7 +54,7 @@ def link(item):
     if link:
         link = link
     else:
-        link = ERROR_0
+        link = utility.error_4()
     return link
 
 

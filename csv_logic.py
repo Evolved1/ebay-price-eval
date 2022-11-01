@@ -3,7 +3,7 @@ import codecs
 import csv
 import pandas as pd
 
-
+import utility
 
 
 def csv_logic_main(results, search_term):
@@ -30,9 +30,10 @@ def check_if_csv_exists(search_term):
     csv_path = os.getcwd() + '\\' + csv_name
     #print('\n\n\n\nTEST1\n\n\n\n')
     if os.path.exists(csv_path):
-        #print('\n\n\n\nTEST2\n\n\n\n')
+        print(f'{utility.bcolors.HEADER}', 'File found, updating!', f'{utility.bcolors.ENDC}')
         return csv_path
     else:
+        print(f'{utility.bcolors.HEADER}', 'No File Found, creating csv...', f'{utility.bcolors.ENDC}')
         return False
 
 def update_csv(new_data, csv_path):
@@ -51,6 +52,7 @@ def update_csv(new_data, csv_path):
             old_data.append(new_results)
             appended = appended + 1
 
+    print(f'{utility.bcolors.WARNING}{utility.bcolors.BOLD}', 'Updated ', appended, ' items', f'{utility.bcolors.ENDC}\n')
     return appended
 
 def export_new_csv(product_list, search_term):

@@ -1,4 +1,4 @@
-import error_function
+import utility
 import os
 import pandas as pd
 import mpu.pd
@@ -77,5 +77,6 @@ def url(search_term):
     search_term = search_term.replace(' ', '+')
     auction = 0
     url = f"https://www.ebay.com.au/sch/i.html?_from=R40&_nkw='{search_term}'&_sacat=31388&LH_TitleDesc=0&LH_Sold=1&LH_Complete=1&_ipg=200&rt=nc&LH_Auction='{auction}'&_ipg=200"
-    print(url)
+    print_url = utility.link(url)
+    #print(print_url)
     return url
