@@ -5,21 +5,31 @@ import csv_logic
 
 def main():
     mass_import = target_item.single_or_mass()
+    csv_logic.csv_logic_main.appended = 0
+    csv_logic.csv_logic_main.new_file = 0
+
     if mass_import == 0:
         single_item_check()
 
     else:
         mass_check()
 
+    print('--------------------------------------------------------------\n')
+    print(csv_logic.csv_logic_main.appended, ' old files updated\n')
+    print(csv_logic.csv_logic_main.new_file, ' new files created\n')
+    print('--------------------------------------------------------------\n')
+
 def single_item_check():
     new_search = target_item.target_item()
     new_url = target_item.url(new_search)
     soup = eBay_scrape.get_data(new_url)
     products = eBay_scrape.parse(soup)
-    eBay_scrape.export(products, new_search)
+    appended, new_files = products_tested = csv_logic.csv_logic_main(products, new_search)
+    # print(products_tested)
+    return appended, new_files
 
 def mass_check():
-    i = 0
+
     num_items, new_search = target_item.mass_import()
 
     print(new_search)
@@ -28,9 +38,9 @@ def mass_check():
         new_url = target_item.url(items)
         soup = eBay_scrape.get_data(new_url)
         products = eBay_scrape.parse(soup)
-        products_tested = csv_logic.check_for_ghost(products)
+        csv_logic.csv_logic_main(products, items)
         #print(products_tested)
-        eBay_scrape.export(products_tested, items)
-        i = i + 1
+
+
 
 main()

@@ -62,12 +62,6 @@ def link(item):
 def loadup(product_list):
     return
 
-def export(product_list, search_term):
-    productsdf = pd.DataFrame(product_list)
-    productsdf.to_csv(search_term +'.csv', index=False)
-    print('Saved to CSV')
-    return
-
 
 if __name__ == '__main__':
     main()

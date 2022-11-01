@@ -1,3 +1,20 @@
+import os
+import codecs
+import csv
+import pandas as pd
+
+
+
+
+def csv_logic_main(results, search_term):
+
+    results = check_for_ghost(results)
+    csv_path = check_if_csv_exists(search_term)
+    if csv_path:
+        csv_logic_main.appended += update_csv(results, csv_path)
+
+    else:
+        csv_logic_main.new_file += export_new_csv(results, search_term)
 
 
 def check_for_ghost(results):
@@ -7,3 +24,42 @@ def check_for_ghost(results):
     #print(results[0])
     return results
 
+def check_if_csv_exists(search_term):
+
+    csv_name = str(search_term) + '.csv'
+    csv_path = os.getcwd() + '\\' + csv_name
+    #print('\n\n\n\nTEST1\n\n\n\n')
+    if os.path.exists(csv_path):
+        #print('\n\n\n\nTEST2\n\n\n\n')
+        return csv_path
+    else:
+        return False
+
+def update_csv(new_data, csv_path):
+
+    appended = 0
+    with codecs.open(csv_path, encoding='utf-8-sig') as f:
+        reader = csv.reader(f)
+        old_data = [row for row in reader]
+
+    for new_results in new_data:
+        new_info = 0
+        for old_results in old_data:
+            if old_results != new_results:
+                new_info = new_info + 1
+        if new_info != len(old_data):
+            old_data.append(new_results)
+            appended = appended + 1
+
+    return appended
+
+def export_new_csv(product_list, search_term):
+    productsdf = pd.DataFrame(product_list)
+    productsdf.to_csv(search_term +'.csv', index=False)
+    print('Saved to CSV')
+    return 1
+
+
+#global var
+csv_logic_main.appended = 0
+csv_logic_main.new_file = 0
