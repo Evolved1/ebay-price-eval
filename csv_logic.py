@@ -49,6 +49,7 @@ def check_if_csv_exists(search_term):
 
 def update_csv(new_data, csv_path):
 
+    pending = []
     appended = 0
     with codecs.open(csv_path, encoding='utf-8-sig') as f:
         reader = csv.reader(f)
@@ -57,22 +58,25 @@ def update_csv(new_data, csv_path):
     #if test_new_data():
 
     for new_results in new_data:
-        new_info = 0
+        found_flag = 0
         i = 0
+        new_title = str(new_results["title"])
+        new_date = str(new_results['sold_date'])
 
         for old_results in old_data:
-            new_title = str(new_results["title"])
             old_title = old_results[0]
-            new_date = str(new_results['sold_date'])
             old_date = old_results[2]
-
             i = i + 1
 
             if old_title == new_title and old_date == new_date:
-                new_info = new_info + 1
-        if new_info == 0:
+                found_flag += 1
+                break
+
+        if found_flag == 0:
             old_data.append(new_results)
             appended = appended + 1
+
+
 
     #old_data[len(old_data[0])]= DATE_UPDATED
 

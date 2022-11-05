@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import utility
 import hashlib
+from datetime import datetime
 
 
 def get_data(url):
@@ -46,7 +47,9 @@ def sold_price(item):
 def sold_date(item):
     sold_date = item.find('span', {'class': 'POSITIVE'})
     if sold_date:
-        sold_date = sold_date.text
+        sold_date = sold_date.text.replace('Sold  ','')
+        #print(sold_date)
+        sold_date = datetime.strptime(sold_date, '%d %b %Y')
     else:
         sold_date = utility.error_4()
     return sold_date
